@@ -1,0 +1,67 @@
+// Importa a biblioteca de banco de dados do Wix
+import wixData from 'wix-data';
+
+// Essa função roda assim que a página termina de carregar
+$w.onReady(function () {
+    // Detecta quando o botão "btnGerar" for clicado
+    $w("#btnGerar").onClick((event) => {
+        gerarRelatorioDeInsumos();
+    });
+});
+
+// A nossa função principal (usamos 'async' porque consultar o banco leva alguns milissegundos)
+async function gerarRelatorioDeInsumos() {
+    try {
+        console.log("Iniciando a busca no banco de dados...");
+
+        // 1. Busca todos os planejamentos do Calendário
+        // O .include("receita") faz o Wix trazer não só o ID, mas os dados completos da Receita ligada
+        const resultadosPlanejamento = await wixData.query("Planejamento")
+            .include("receita") // Use o "Field Key" (ID do campo) da sua referência
+            .find();
+
+        const planejamentos = resultadosPlanejamento.items;
+        const totalInsumos = {};
+
+        // 2. Percorre cada planejamento do calendário
+        for (let pedido of planejamentos) {
+            let multiplicador = pedido.multiplicador; // Quantas receitas o chef vai fazer
+            let idDaReceita = pedido.receita._id; // Pega o ID único da receita escolhida
+
+            // 3. Busca os ingredientes específicos desta receita
+            // O .include("insumo") puxa os dados reais (nome, unidade) lá da tabela de Insumos base
+            const resultadosIngredientes = await wixData.query("IngredientesDaReceita")
+                .eq("receita", idDaReceita) // Filtra só os ingredientes desta receita
+                .include("insumo") 
+                .find();
+
+            let ingredientes = resultadosIngredientes.items;
+
+            // 4. Faz a matemática de multiplicação e agrupamento
+            for (let item of ingredientes) {
+                let nomeInsumo = item.insumo.nome; // Campo "nome" na tabela Insumos
+                let unidade = item.insumo.unidadeDeMedida; // Campo "unidade de medida"
+                let qtdNecessaria = item.quantidadeNecessaria; // Campo numérico na tabela intermediária
+
+                let identificador = `${nomeInsumo} (${unidade})`;
+                let quantidadeCalculada = qtdNecessaria * multiplicador;
+
+                // Soma se já existir, ou adiciona se for o primeiro
+                if (totalInsumos[identificador]) {
+                    totalInsumos[identificador] += quantidadeCalculada;
+                } else {
+                    totalInsumos[identificador] = quantidadeCalculada;
+                }
+            }
+        }
+
+        // 5. Exibe o resultado final
+        console.log("--- RESULTADO FINAL DA LISTA DE COMPRAS ---");
+        console.log(totalInsumos);
+
+       
+
+    } catch (erro) {
+        console.error("Erro ao buscar dados:", erro);
+    }
+}

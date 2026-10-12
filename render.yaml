@@ -1,0 +1,55 @@
+# Blueprint para demonstração do PI. Confira os planos antes de aplicar.
+# Para o Web Service existente do projeto, siga README.md e reutilize o serviço.
+# Este Blueprint com nomes novos pode criar recursos adicionais se aplicado sem adaptação.
+# PostgreSQL Free expira 30 dias após a criação: https://render.com/docs/free
+# Para uso contínuo, escolha um plano pago para o banco no painel e neste arquivo.
+# O menor plano pago atual é 0.1c-256mb; ele implica cobrança.
+services:
+  - type: web
+    name: tia-zoca
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: PORT
+        value: "8080"
+      - key: SECRETARY_NAME
+        value: Secretaria
+      - key: SECRETARY_EMAIL
+        sync: false
+      - key: SECRETARY_PASSWORD
+        sync: false
+      - key: DB_HOST
+        fromDatabase:
+          name: tia-zoca-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: tia-zoca-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: tia-zoca-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: tia-zoca-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: tia-zoca-db
+          property: password
+
+databases:
+  - name: tia-zoca-db
+    plan: free
+    region: oregon
+    databaseName: tiazoca
+    user: tiazoca_app
+    # Bloqueia acesso externo ao banco. O serviço usa a rede interna do Render.
+    ipAllowList: []

@@ -1,0 +1,30 @@
+import wixData from 'wix-data';
+
+$w.onReady(function () {
+    // Quando o chef mudar a data no calendário...
+    $w("#datePickerFiltro").onChange(() => {
+        filtrarPorData();
+    });
+});
+
+function filtrarPorData() {
+    // Pega a data selecionada no componente
+    let dataSelecionada = $w("#datePickerFiltro").value;
+
+    // Criamos o intervalo de tempo (do início ao fim do dia selecionado)
+    let inicioDoDia = new Date(dataSelecionada.setHours(0, 0, 0, 0));
+    let fimDoDia = new Date(dataSelecionada.setHours(23, 59, 59, 999));
+
+    // Aplica o filtro no Dataset que alimenta o Repetidor
+    $w("#datasetPlanejamento").setFilter(
+        wixData.filter()
+        .ge("dataDoPreparo", inicioDoDia) // Maior ou igual ao início do dia
+        .le("dataDoPreparo", fimDoDia)    // Menor ou igual ao fim do dia
+    )
+    .then(() => {
+        console.log("Filtro aplicado para o dia selecionado!");
+    })
+    .catch((err) => {
+        console.log("Erro ao filtrar: ", err);
+    });
+}
