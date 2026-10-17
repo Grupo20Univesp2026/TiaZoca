@@ -50,13 +50,13 @@ As senhas devem ter pelo menos 8 caracteres e no máximo 72 bytes em UTF-8. Prof
 
 ## Execução local
 
-Com o Java 21 instalado, execute na pasta do projeto:
+Com o Java 21 instalado, preencha o arquivo `.env` local com as credenciais da secretaria e execute na pasta do projeto:
 
 ```powershell
-.\mvnw.cmd spring-boot:run
+.\scripts\iniciar-local.ps1
 ```
 
-Na primeira execução, o Maven Wrapper baixa o Maven automaticamente. Depois, acesse [http://localhost:8080](http://localhost:8080). O perfil padrão usa o banco H2 local.
+O `.env` é ignorado pelo Git e não deve ser compartilhado ou enviado ao repositório. Na primeira execução, o Maven Wrapper baixa o Maven automaticamente. Depois, acesse [http://localhost:8080](http://localhost:8080). O perfil padrão usa o banco H2 local.
 
 ## Hospedagem no Render
 
