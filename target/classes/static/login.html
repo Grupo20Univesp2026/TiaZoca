@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#294d43" />
+    <title>Entrar • Tia Zoca</title>
+    <link rel="icon" href="/assets/bee.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body class="auth-body" data-page="login">
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <main class="auth-layout" id="conteudo">
+      <aside class="auth-story">
+        <a class="brand" href="/"
+          ><span class="brand-symbol"
+            ><img src="/assets/bee.svg" alt="" width="44" height="44" /></span
+          ><span
+            ><strong>Tia Zoca<span class="brand-dot">.</span></strong
+            ><small>Escola Severina Barbosa</small></span
+          ></a
+        >
+        <div class="auth-story-copy">
+          <span class="eyebrow">BEM-VINDA À NOSSA ESCOLA</span>
+          <h1>Sua próxima aula<br />começa <em>aqui.</em></h1>
+          <p>Um lugar para organizar os recursos que transformam o aprender.</p>
+          <div class="auth-story-card">
+            <span class="story-icon" aria-hidden="true">✳</span>
+            <div>
+              <strong>Todos os recursos, no mesmo lugar.</strong>
+              <p>
+                Consulte as reservas da escola e planeje o uso de cada
+                equipamento.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="auth-school-note">
+          Escola Severina Barbosa “Tia Zoca”<br /><span
+            >Organização que cuida do nosso dia a dia.</span
+          >
+        </div>
+      </aside>
+      <section class="auth-form-area">
+        <a href="/" class="back-link"
+          ><span aria-hidden="true">←</span> Voltar ao início</a
+        >
+        <div class="auth-form-card">
+          <span class="eyebrow" id="login-eyebrow">ACESSO DA PROFESSORA</span>
+          <h2>Que bom ter você aqui.</h2>
+          <p class="form-intro" id="login-intro">
+            Entre com seu e-mail e senha para continuar.
+          </p>
+          <div
+            class="notice"
+            id="form-message"
+            role="status"
+            aria-live="polite"
+            hidden
+          ></div>
+          <form id="login-form" class="form-stack">
+            <div class="field">
+              <label for="email">E-mail</label
+              ><input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="seuemail@exemplo.com"
+                autocomplete="username"
+                maxlength="254"
+                required
+              />
+            </div>
+            <div class="field">
+              <label for="password">Senha</label>
+              <div class="password-field">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Digite sua senha"
+                  autocomplete="current-password"
+                  maxlength="72"
+                  required
+                /><button
+                  class="password-toggle"
+                  type="button"
+                  data-password-target="password"
+                  aria-label="Mostrar senha"
+                  aria-pressed="false"
+                >
+                  Ver
+                </button>
+              </div>
+            </div>
+            <button type="submit" class="button button-full">
+              Entrar <span aria-hidden="true">→</span>
+            </button>
+          </form>
+          <p class="auth-switch" id="signup-link">
+            Ainda não tem uma conta? <a href="/cadastro.html">Cadastre-se</a>
+          </p>
+          <p class="auth-footnote" id="login-footnote">
+            A secretaria vincula sua conta a uma sala antes do primeiro
+            agendamento.
+          </p>
+        </div>
+        <span class="auth-form-footer">Equipamentos multimídia · Tia Zoca</span>
+      </section>
+    </main>
+  </body>
+</html>

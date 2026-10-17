@@ -48,6 +48,16 @@ As duas datas fazem parte do período ocupado. Exemplo: uma reserva entre 12 e 1
 
 As senhas devem ter pelo menos 8 caracteres e no máximo 72 bytes em UTF-8. Professora e secretaria usam o mesmo mecanismo de login, mas o backend verifica o perfil em cada ação. Uma professora ainda sem sala pode consultar a agenda, porém não consegue reservar. Ao remover uma professora, a secretaria também cancela suas reservas em andamento ou futuras; as anteriores permanecem no histórico.
 
+## Execução local
+
+Com o Java 21 instalado, execute na pasta do projeto:
+
+```powershell
+.\mvnw.cmd spring-boot:run
+```
+
+Na primeira execução, o Maven Wrapper baixa o Maven automaticamente. Depois, acesse [http://localhost:8080](http://localhost:8080). O perfil padrão usa o banco H2 local.
+
 ## Hospedagem no Render
 
 O projeto usa um **Web Service com Docker**
@@ -60,4 +70,3 @@ O projeto usa um **Web Service com Docker**
 | Expiração do banco | **11 de novembro de 2026** |
 | Origem do código | Public Git Repository, branch `main` de `Grupo20Univesp2026/TrabalhoPi` |
 | Atualizações | Auto-Deploy desativado; deploy manual após enviar o código |
-
