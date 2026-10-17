@@ -1,0 +1,13 @@
+.env
+
+# Maven build output
+target/
+
+# Local tools, dependency cache, and runtime data
+.tools/
+data/
+*.mv.db
+*.trace.db
+
+# Logs
+*.log

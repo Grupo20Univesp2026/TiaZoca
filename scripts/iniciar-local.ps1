@@ -6,11 +6,32 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $taskProjectRoot = Split-Path -Parent $PSScriptRoot
+$taskOriginalEmail = $env:SECRETARY_EMAIL
 $taskOriginalPassword = $env:SECRETARY_PASSWORD
+$taskOriginalName = $env:SECRETARY_NAME
 $taskOriginalMavenOptions = $env:MAVEN_OPTS
 Push-Location -LiteralPath $taskProjectRoot
 
 try {
+    $taskEnvFile = Join-Path $taskProjectRoot '.env'
+    if (Test-Path -LiteralPath $taskEnvFile) {
+        foreach ($taskEnvLine in Get-Content -LiteralPath $taskEnvFile) {
+            if ($taskEnvLine -match '^\s*([^#=\s]+)\s*=\s*(.*?)\s*$') {
+                $taskEnvKey = $Matches[1]
+                $taskEnvValue = $Matches[2]
+                if ($taskEnvValue.Length -ge 2 -and
+                    (($taskEnvValue.StartsWith('"') -and $taskEnvValue.EndsWith('"')) -or
+                    ($taskEnvValue.StartsWith("'") -and $taskEnvValue.EndsWith("'")))) {
+                    $taskEnvValue = $taskEnvValue.Substring(1, $taskEnvValue.Length - 2)
+                }
+                if ($taskEnvKey -in @('SECRETARY_EMAIL', 'SECRETARY_PASSWORD', 'SECRETARY_NAME') -and
+                    -not [Environment]::GetEnvironmentVariable($taskEnvKey)) {
+                    [Environment]::SetEnvironmentVariable($taskEnvKey, $taskEnvValue, 'Process')
+                }
+            }
+        }
+    }
+
     # Reaproveita o JDK portátil deste computador ou um JDK instalado.
     if (-not $env:JAVA_HOME -or -not (Test-Path -LiteralPath "$env:JAVA_HOME/bin/java.exe")) {
         $taskPortableJava = Get-ChildItem -LiteralPath '.tools/java' -Directory -ErrorAction SilentlyContinue |
@@ -50,7 +71,9 @@ try {
     & $taskJavaExe -jar (Join-Path $taskProjectRoot 'target/tia-zoca-1.0.0.jar') '--server.address=127.0.0.1'
     if ($LASTEXITCODE -ne 0) { throw 'O sistema não iniciou. Confira a mensagem acima.' }
 } finally {
+    $env:SECRETARY_EMAIL = $taskOriginalEmail
     $env:SECRETARY_PASSWORD = $taskOriginalPassword
+    $env:SECRETARY_NAME = $taskOriginalName
     $env:MAVEN_OPTS = $taskOriginalMavenOptions
     Pop-Location
 }
