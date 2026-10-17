@@ -218,7 +218,7 @@
     if (params.get("perfil") === "secretaria") {
       $("login-eyebrow").textContent = "ACESSO DA SECRETARIA";
       $("login-intro").textContent =
-        "Entre com a conta da secretaria para gerenciar as professoras.";
+        "Entre com a conta da secretaria para gerenciar os docentes.";
       $("signup-link").hidden = true;
       $("login-footnote").textContent =
         "Este acesso é exclusivo da secretaria da escola.";
@@ -308,7 +308,7 @@
         ? "A agenda da nossa escola."
         : `Olá, ${user.name.trim().split(/\s+/)[0]}!`;
       $("greeting-description").textContent = secretary
-        ? "Consulte o uso dos equipamentos pelas professoras."
+        ? "Consulte o uso dos equipamentos pelos docentes."
         : "Uma boa aula começa com um bom planejamento.";
       $("room-badge").textContent = secretary
         ? "Secretaria"
@@ -571,7 +571,7 @@
       !teacher || !teacher.room || !room || teacher.room === room;
     $("remove-teacher").disabled = !teacher;
     $("teacher-selection-info").textContent = !teacher
-      ? "Selecione uma professora para começar."
+      ? "Selecione um docente para começar."
       : teacher.room
         ? `Sala atual de ${teacher.name}: ${teacher.room}. Selecione outra sala para alterar.`
         : `${teacher.name} está aguardando a definição de uma sala.`;
@@ -588,8 +588,8 @@
       option(
         "",
         active.length
-          ? "Selecione a professora"
-          : "Nenhuma professora cadastrada",
+          ? "Selecione o docente"
+          : "Nenhum docente cadastrado",
       ),
     );
     active
@@ -633,14 +633,14 @@
           a.name.localeCompare(b.name, "pt-BR"),
       );
     $("teachers-total").textContent =
-      `${filtered.length} ${filtered.length === 1 ? "professora encontrada" : "professoras encontradas"}`;
+      `${filtered.length} ${filtered.length === 1 ? "docente encontrado" : "docentes encontrados"}`;
     const body = $("teachers-table");
     if (!filtered.length) {
       emptyTable(
         body,
         5,
         query
-          ? "Nenhuma professora encontrada."
+          ? "Nenhum docente encontrado."
           : filter === "pending"
             ? "Todas as salas estão em dia."
             : filter === "inactive"
@@ -649,10 +649,10 @@
         query
           ? "Tente buscar outro nome, e-mail ou sala."
           : filter === "pending"
-            ? "Não há professoras aguardando definição de sala."
+            ? "Não há docentes aguardando definição de sala."
             : filter === "inactive"
               ? "Contas removidas aparecerão aqui."
-              : "As professoras aparecerão aqui depois de criarem suas contas.",
+              : "Os docentes aparecerão aqui depois de criarem suas contas.",
       );
       return;
     }
