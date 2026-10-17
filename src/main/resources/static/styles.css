@@ -135,9 +135,6 @@ fieldset {
   font-weight: 800;
   line-height: 1.05;
 }
-.brand-dot {
-  color: #d59c29;
-}
 .brand small {
   display: block;
   color: var(--muted);
@@ -290,24 +287,6 @@ fieldset {
   gap: 19px;
   margin-top: 31px;
 }
-.hero-note {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--muted);
-  font-size: 11px;
-  margin-top: 35px;
-}
-.check-round {
-  border-radius: 50%;
-  height: 17px;
-  width: 17px;
-  background: var(--sage);
-  color: var(--green);
-  display: grid;
-  place-items: center;
-  font-size: 10px;
-}
 .hero-art {
   background: #f5e4bb;
   border: 1px solid #e8d6ac;
@@ -399,12 +378,6 @@ fieldset {
   height: 30px;
   width: 1px;
   background: #dfcda4;
-}
-.art-stats-note {
-  margin-left: auto;
-  line-height: 1.5;
-  max-width: 100px;
-  text-align: right;
 }
 .how-section {
   max-width: 1168px;
@@ -1439,9 +1412,6 @@ dialog .dialog-note {
     padding-left: 25px;
     padding-right: 24px;
   }
-  .art-stats-note {
-    display: none;
-  }
   .how-section {
     gap: 35px;
   }
@@ -1833,10 +1803,6 @@ dialog .dialog-note {
     font-size: 13px;
     padding: 13px 18px;
   }
-  .hero-note {
-    margin-top: 25px;
-    font-size: 10px;
-  }
   .hero-art {
     max-width: 480px;
     width: 100%;
@@ -1875,9 +1841,6 @@ dialog .dialog-note {
   }
   .art-stats span {
     font-size: 10px;
-  }
-  .art-stats-note {
-    display: block;
   }
   .how-section {
     margin-left: 25px;
@@ -2306,9 +2269,6 @@ dialog .dialog-note {
     margin-right: -18px;
     padding-left: 24px;
     padding-right: 24px;
-  }
-  .art-stats-note {
-    display: none;
   }
   .sidebar {
     padding-left: 14px;
